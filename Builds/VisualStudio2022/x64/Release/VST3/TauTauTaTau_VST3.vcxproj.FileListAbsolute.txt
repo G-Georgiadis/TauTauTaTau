@@ -1,0 +1,1 @@
+E:\VS2022 Projects\C++\JUCE\TauTauTaTau\Builds\VisualStudio2022\x64\Release\VST3\TauTauTaTau.dll
