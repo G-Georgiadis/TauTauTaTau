@@ -41,7 +41,6 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     AudioProcessorValueTreeState apvts{ *this, nullptr, "TauTauTaTauParameters", createParameterLayout() };
-    double getTempo() const;
 private:
     enum Channels
     {
@@ -49,8 +48,6 @@ private:
         Right
     };
 
-    Optional<juce::AudioPlayHead::PositionInfo> currentPositionInfo;
-    double tempo;
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     
     int maximumDelayInSamples;
