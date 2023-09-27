@@ -97,16 +97,6 @@ void TauTauTaTauAudioProcessor::prepareToPlay (double sampleRate, int samplesPer
 
     delayMs_L.reset(sampleRate, 0.05);
     delayMs_R.reset(sampleRate, 0.05);
-
-    /** get the tempo */
-    if (auto* playHead = getPlayHead())
-    {
-        auto position = playHead->getPosition();
-        if (position.hasValue())
-        {
-            currentPositionInfo = *position;
-        }
-    }
 }
 
 void TauTauTaTauAudioProcessor::releaseResources()
@@ -160,18 +150,6 @@ void TauTauTaTauAudioProcessor::setStateInformation (const void* data, int sizeI
     if (xmlState.get() != nullptr)
         if (xmlState->hasTagName(apvts.state.getType()))
             apvts.replaceState(juce::ValueTree::fromXml(*xmlState));
-}
-
-double TauTauTaTauAudioProcessor::getTempo() const
-{
-    if (currentPositionInfo.hasValue())
-    {
-        return *currentPositionInfo->getBpm();
-    }
-    else
-    {
-        return 120.0; // Default tempo in BPM
-    }
 }
 
 AudioProcessorValueTreeState::ParameterLayout TauTauTaTauAudioProcessor::createParameterLayout()
