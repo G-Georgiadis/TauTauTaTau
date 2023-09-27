@@ -1,0 +1,49 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+/JuceLibraryCode
+/Builds/VisualStudio2022/x64/Debug
+/Builds/VisualStudio2022/.vs/TauTauTaTau
+/Builds/VisualStudio2022/resources.rc
+/Builds/VisualStudio2022/TauTauTaTau.sln
+/Builds/VisualStudio2022/TauTauTaTau_SharedCode.vcxproj
+/Builds/VisualStudio2022/TauTauTaTau_SharedCode.vcxproj.filters
+/Builds/VisualStudio2022/TauTauTaTau_SharedCode.vcxproj.user
+/Builds/VisualStudio2022/TauTauTaTau_StandalonePlugin.vcxproj
+/Builds/VisualStudio2022/TauTauTaTau_StandalonePlugin.vcxproj.filters
+/Builds/VisualStudio2022/TauTauTaTau_VST3.vcxproj
+/Builds/VisualStudio2022/TauTauTaTau_VST3.vcxproj.filters
+/Builds/VisualStudio2022/TauTauTaTau_VST3.vcxproj.user
+/Builds/VisualStudio2022/TauTauTaTau_VST3ManifestHelper.vcxproj
+/Builds/VisualStudio2022/TauTauTaTau_VST3ManifestHelper.vcxproj.filters
+/Builds/VisualStudio2022/x64/Release/Shared Code
+/Builds/VisualStudio2022/x64/Release/VST3 Manifest Helper
