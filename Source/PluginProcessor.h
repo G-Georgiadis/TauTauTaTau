@@ -41,6 +41,8 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     AudioProcessorValueTreeState apvts{ *this, nullptr, "TauTauTaTauParameters", createParameterLayout() };
+
+    float softclip(float value);
 private:
     enum Channels
     {
