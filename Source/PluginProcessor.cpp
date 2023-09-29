@@ -123,13 +123,13 @@ void TauTauTaTauAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
 
         if (dry)
         {
-            buffer.addSample(Channels::Left, sampleIndex, delayedSample_L);
-            buffer.addSample(Channels::Right, sampleIndex, delayedSample_R);
+            buffer.addSample(Channels::Left, sampleIndex, softclip(delayedSample_L));
+            buffer.addSample(Channels::Right, sampleIndex, softclip(delayedSample_R));
         }
         else
         {
-            buffer.setSample(Channels::Left, sampleIndex, delayedSample_L);
-            buffer.setSample(Channels::Right, sampleIndex, delayedSample_R);
+            buffer.setSample(Channels::Left, sampleIndex, softclip(delayedSample_L));
+            buffer.setSample(Channels::Right, sampleIndex, softclip(delayedSample_R));
         }
     }
 }
@@ -160,6 +160,13 @@ void TauTauTaTauAudioProcessor::setStateInformation (const void* data, int sizeI
     if (xmlState.get() != nullptr)
         if (xmlState->hasTagName(apvts.state.getType()))
             apvts.replaceState(juce::ValueTree::fromXml(*xmlState));
+}
+
+float TauTauTaTauAudioProcessor::softclip(float value)
+{
+    value = 2 / MathConstants<float>::pi * atanf(value);
+
+    return value;
 }
 
 AudioProcessorValueTreeState::ParameterLayout TauTauTaTauAudioProcessor::createParameterLayout()
