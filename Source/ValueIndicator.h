@@ -9,5 +9,4 @@ public:
 	ValueIndicator();
 	void draw(Graphics& g, Rectangle<int> bounds, float sliderPosProportional, float rotaryStartAngle, float rotaryEndAngle, Slider& slider);
 private:
-	GlowEffect glow;
 };

@@ -8,12 +8,7 @@ IndentedWheelSlider_LookAndFeel::IndentedWheelSlider_LookAndFeel(const String ne
 	colourGradientsInitialized(false),
 	valueIndicator(),
 	titleText(newTitleText)
-{
-	
-}
-
-IndentedWheelSlider_LookAndFeel::~IndentedWheelSlider_LookAndFeel()
-{
+{	
 }
 
 Slider::SliderLayout IndentedWheelSlider_LookAndFeel::getSliderLayout(Slider& slider)
@@ -22,7 +17,8 @@ Slider::SliderLayout IndentedWheelSlider_LookAndFeel::getSliderLayout(Slider& sl
 
 	Rectangle<int> localBounds = slider.getLocalBounds();
 	layout.sliderBounds = localBounds;
-	layout.textBoxBounds = localBounds.reduced(0.35 * localBounds.getWidth(), 0.4f * localBounds.getHeight());
+	layout.textBoxBounds = localBounds.reduced(0.2 * localBounds.getWidth(), 0.4f * localBounds.getHeight());
+	/** The value text box is pushed to the bottom half of the control bounds to leave space for the title label. */
 	layout.textBoxBounds.setTop(localBounds.getHeight() * 0.5f);
 	return layout;
 }
@@ -40,6 +36,7 @@ void IndentedWheelSlider_LookAndFeel::drawRotarySlider(Graphics& g, int x, int y
 	indicatorBounds = rotaryKnobBounds.reduced(outerBevelThickness);
 	innerBevelBounds = indicatorBounds.reduced(indicatorThickness);
 
+	/** Create the colour gradients if they don't exist. */
 	if (!colourGradientsInitialized) makeGradients();
 
 	/** Draw the outer bevel */
@@ -93,5 +90,6 @@ void IndentedWheelSlider_LookAndFeel::makeGradients()
 {
 	normalGradient = ColourGradient(Colours::whitesmoke.darker(0.2), rotaryKnobBounds.getTopRight().toFloat(), Colours::whitesmoke, rotaryKnobBounds.getBottomLeft().toFloat(), false);
 	reverseGradient = ColourGradient(Colours::whitesmoke, rotaryKnobBounds.getTopRight().toFloat(), Colours::whitesmoke.darker(0.2), rotaryKnobBounds.getBottomLeft().toFloat(), false);
+	/** Raise the flag to indicate colour gradients are initialized. */
 	colourGradientsInitialized = true;
 }

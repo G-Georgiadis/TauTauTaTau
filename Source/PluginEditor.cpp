@@ -1,11 +1,3 @@
-/*
-  ==============================================================================
-
-    This file contains the basic framework code for a JUCE plugin editor.
-
-  ==============================================================================
-*/
-
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
@@ -18,11 +10,13 @@ TauTauTaTauAudioProcessorEditor::TauTauTaTauAudioProcessorEditor (TauTauTaTauAud
     feedback_L_Slider("Feedback L"),
     feedback_X_Slider("X Feedback"),
     feedback_R_Slider("Feedback R"),
+    dry_Button(),
     delay_L_Slider_Attachment(p.apvts, "DelayL", delay_L_Slider),
     delay_R_Slider_Attachment(p.apvts, "DelayR", delay_R_Slider),
     feedback_L_Slider_Attachment(p.apvts, "FBL", feedback_L_Slider),
     feedback_X_Slider_Attachment(p.apvts, "FBX", feedback_X_Slider),
     feedback_R_Slider_Attachment(p.apvts, "FBR", feedback_R_Slider),
+    dry_Button_Attachment(p.apvts, "Dry", dry_Button),
     gradient()
 
 {
@@ -33,17 +27,17 @@ TauTauTaTauAudioProcessorEditor::TauTauTaTauAudioProcessorEditor (TauTauTaTauAud
     addAndMakeVisible(feedback_L_Slider);
     addAndMakeVisible(feedback_X_Slider);
     addAndMakeVisible(feedback_R_Slider);
+    addAndMakeVisible(dry_Button);
 
     delay_L_Slider.setTextValueSuffix("sec");
     delay_R_Slider.setTextValueSuffix("sec");
-    
 }
 
 TauTauTaTauAudioProcessorEditor::~TauTauTaTauAudioProcessorEditor()
 {
 }
 
-//==============================================================================
+
 void TauTauTaTauAudioProcessorEditor::paint (juce::Graphics& g)
 {
     g.setGradientFill(gradient);
@@ -63,6 +57,8 @@ void TauTauTaTauAudioProcessorEditor::resized()
     feedback_L_Slider.setBounds(localBounds.getX(), localBounds.getY(), feedbackKnobWidth, localBounds.getHeight());
     feedback_X_Slider.setBounds(feedbackKnobWidth, localBounds.getY(), feedbackKnobWidth, localBounds.getHeight());
     feedback_R_Slider.setBounds(feedbackKnobWidth * 2, localBounds.getY(), feedbackKnobWidth, localBounds.getHeight());
+
+    dry_Button.setBounds(localBounds.getX() + 10, localBounds.getHeight() - 25, 30, 15);
 
     gradient = ColourGradient(Colours::beige, localBounds.getBottomLeft().toFloat(), Colours::white, localBounds.getTopRight().toFloat(), false);
 }

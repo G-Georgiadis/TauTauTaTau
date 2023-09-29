@@ -3,7 +3,6 @@
 ValueIndicator::ValueIndicator()
 {
     glow.setGlowProperties(3, Colours::darkorange);
-    setComponentEffect(&glow);
 }
 
 void ValueIndicator::draw(Graphics& g, Rectangle<int> bounds, float sliderPosProportional, float rotaryStartAngle, float rotaryEndAngle, Slider& slider)

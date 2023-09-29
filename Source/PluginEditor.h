@@ -3,6 +3,7 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "IndentedWheelSlider.h"
+#include "DryButton.h"
 
 using namespace juce;
 
@@ -12,13 +13,11 @@ public:
     TauTauTaTauAudioProcessorEditor (TauTauTaTauAudioProcessor&);
     ~TauTauTaTauAudioProcessorEditor() override;
 
-    //==============================================================================
+    
     void paint (juce::Graphics&) override;
     void resized() override;
 
 private:
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
     TauTauTaTauAudioProcessor& audioProcessor;
 
     IndentedWheelSlider delay_L_Slider;
@@ -27,6 +26,8 @@ private:
     IndentedWheelSlider feedback_L_Slider;
     IndentedWheelSlider feedback_X_Slider;
     IndentedWheelSlider feedback_R_Slider;
+
+    DryButton dry_Button;
     
 
     AudioProcessorValueTreeState::SliderAttachment delay_L_Slider_Attachment;
@@ -35,6 +36,9 @@ private:
     AudioProcessorValueTreeState::SliderAttachment feedback_L_Slider_Attachment;
     AudioProcessorValueTreeState::SliderAttachment feedback_X_Slider_Attachment;
     AudioProcessorValueTreeState::SliderAttachment feedback_R_Slider_Attachment;
+
+    AudioProcessorValueTreeState::ButtonAttachment dry_Button_Attachment;
+
 
     ColourGradient gradient;
 
