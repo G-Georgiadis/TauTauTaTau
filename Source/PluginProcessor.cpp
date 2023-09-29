@@ -17,6 +17,7 @@ TauTauTaTauAudioProcessor::TauTauTaTauAudioProcessor()
     feedback_L(*apvts.getRawParameterValue("FBL")),
     feedback_R(*apvts.getRawParameterValue("FBR")),
     feedback_X(*apvts.getRawParameterValue("FBX")),
+    dry(false),
     delayLine_L(maximumDelayInSamples),
     delayLine_R(maximumDelayInSamples)
 {
@@ -25,6 +26,7 @@ TauTauTaTauAudioProcessor::TauTauTaTauAudioProcessor()
     apvts.addParameterListener("FBL", this);
     apvts.addParameterListener("FBR", this);
     apvts.addParameterListener("FBX", this);
+    apvts.addParameterListener("Dry", this);
 }
 
 TauTauTaTauAudioProcessor::~TauTauTaTauAudioProcessor()
@@ -119,8 +121,16 @@ void TauTauTaTauAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
         delayLine_L.pushSample(0, buffer.getSample(Channels::Left, sampleIndex) + delayedSample_L * feedback_L.getNextValue() + delayedSample_R * feedback_X.getCurrentValue());
         delayLine_R.pushSample(0, buffer.getSample(Channels::Right, sampleIndex) + delayedSample_R * feedback_R.getNextValue() + delayedSample_L * feedback_X.getCurrentValue());
 
-        buffer.addSample(Channels::Left, sampleIndex, delayedSample_L);
-        buffer.addSample(Channels::Right, sampleIndex, delayedSample_R);
+        if (dry)
+        {
+            buffer.addSample(Channels::Left, sampleIndex, delayedSample_L);
+            buffer.addSample(Channels::Right, sampleIndex, delayedSample_R);
+        }
+        else
+        {
+            buffer.setSample(Channels::Left, sampleIndex, delayedSample_L);
+            buffer.setSample(Channels::Right, sampleIndex, delayedSample_R);
+        }
     }
 }
 
@@ -159,9 +169,19 @@ AudioProcessorValueTreeState::ParameterLayout TauTauTaTauAudioProcessor::createP
     layout.add(std::make_unique<AudioParameterFloat>("DelayL", "Delay L", 0.01f, 3.f, 0.25f));
     layout.add(std::make_unique<AudioParameterFloat>("DelayR", "Delay R", 0.01f, 3.f, 0.25f));
 
-    layout.add(std::make_unique<AudioParameterFloat>("FBL", "Feedback L", 0.f, 1.f, 0.25f));
-    layout.add(std::make_unique<AudioParameterFloat>("FBR", "Feedback R", 0.f, 1.f, 0.25f));
-    layout.add(std::make_unique<AudioParameterFloat>("FBX", "Cross Feedback", 0.f, 1.f, 0.25f));
+    layout.add(std::make_unique<AudioParameterFloat>("FBL", "Feedback L", NormalisableRange<float>(0.0f, 1.0f), 0.25f,
+        AudioParameterFloatAttributes().withLabel("Feedback L").withStringFromValueFunction([](float value, int)
+            {return String(value * 100.0f, 1) + "%";})));
+
+    layout.add(std::make_unique<AudioParameterFloat>("FBR", "Feedback R", NormalisableRange<float>(0.0f, 1.0f), 0.25f,
+        AudioParameterFloatAttributes().withLabel("Feedback R").withStringFromValueFunction([](float value, int)
+            {return String(value * 100.0f, 1) + "%"; })));
+
+    layout.add(std::make_unique<AudioParameterFloat>("FBX", "Cross Feedback", NormalisableRange<float>(0.0f, 1.0f), 0.25f,
+        AudioParameterFloatAttributes().withLabel("X Feedback").withStringFromValueFunction([](float value, int)
+            {return String(value * 100.0f, 1) + "%"; })));
+
+    layout.add(std::make_unique<AudioParameterBool>("Dry", "Dry", false, AudioParameterBoolAttributes().withLabel("Dry")));
 
     return layout;
 }
@@ -174,6 +194,8 @@ void TauTauTaTauAudioProcessor::parameterChanged(const String& parameterID, floa
     if (parameterID == "FBL") feedback_L.setTargetValue(newValue);
     if (parameterID == "FBR") feedback_R.setTargetValue(newValue);
     if (parameterID == "FBX") feedback_X.setTargetValue(newValue);
+
+    if (parameterID == "Dry") dry = newValue;
 }
 
 //==============================================================================

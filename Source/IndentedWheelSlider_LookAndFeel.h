@@ -8,7 +8,6 @@ class IndentedWheelSlider_LookAndFeel : public LookAndFeel_V4
 {
 public:
 	IndentedWheelSlider_LookAndFeel(const String titleText);
-	~IndentedWheelSlider_LookAndFeel();
 
 	/**
 	 * Defines the bounds for the slider and the text box.
@@ -49,8 +48,10 @@ private:
 	bool colourGradientsInitialized;
 	void makeGradients();
 
+	/** The arc that indicates the value */
 	ValueIndicator valueIndicator;
 
+	/** The text above the value indicating what this slider controls */
 	const String titleText;
 
 	static constexpr int numberOfDecimalPlaces = 2;

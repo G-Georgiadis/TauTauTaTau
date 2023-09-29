@@ -55,6 +55,8 @@ private:
     SmoothedValue<float> delayMs_L, delayMs_R;
     SmoothedValue<float> feedback_L, feedback_R, feedback_X;
 
+    bool dry;
+
     dsp::DelayLine<float> delayLine_L, delayLine_R;
 
     // Inherited via Listener

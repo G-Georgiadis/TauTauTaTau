@@ -2,11 +2,11 @@
 
 IndentedWheelSlider::IndentedWheelSlider(const String titleText) : indentedWheelSlider_LookAndFeel(titleText)
 {
-    setLookAndFeel(&indentedWheelSlider_LookAndFeel);
+    this->setLookAndFeel(&indentedWheelSlider_LookAndFeel);
 
-    setSliderStyle(Slider::RotaryVerticalDrag);
+    this->setSliderStyle(Slider::RotaryVerticalDrag);
 
-    setNumDecimalPlacesToDisplay(2);
+    this->setNumDecimalPlacesToDisplay(2);
 }
 
 IndentedWheelSlider::~IndentedWheelSlider()
