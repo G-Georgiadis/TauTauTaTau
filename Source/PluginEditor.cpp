@@ -49,12 +49,28 @@ void TauTauTaTauAudioProcessorEditor::paint (juce::Graphics& g)
 
 void TauTauTaTauAudioProcessorEditor::resized()
 {
+    /** Local bounds */
     auto localBounds = getLocalBounds();
+    /** Top bounds rectangle */
     auto topBounds = localBounds.removeFromTop(localBounds.getHeight() * 0.5);
 
-    delay_L_Slider.setBounds(topBounds.removeFromLeft(topBounds.getWidth() * 0.4));
-    midiSyncSwitch.setBounds(topBounds.removeFromLeft(topBounds.getWidth() * 0.3333));
-    delay_R_Slider.setBounds(topBounds);
+    /** Top bounds position */
+    /** Top Bounds X */
+    auto topBoundsX = topBounds.getX();
+    /** Top Bounds Y */
+    auto topBoundsY = topBounds.getY();
+    /** Top Bounds Width */
+    auto topBoundsWidth = topBounds.getWidth();
+    /** Top bounds Height */
+    auto topBoundsHeight = topBounds.getHeight();
+
+    auto delay_L_Bounds = Rectangle<int>(topBoundsX, topBoundsY, topBoundsWidth * 0.46, topBoundsHeight);
+    auto midiSyncSwitch_Bounds = Rectangle<int>(topBoundsWidth * 0.46, topBounds.getCentreY() - 20, topBoundsWidth * 0.08, 40);
+    auto delay_R_Bounds = Rectangle<int>(topBoundsWidth * 0.54, topBoundsY, topBoundsWidth * 0.46, topBoundsHeight);
+
+    delay_L_Slider.setBounds(delay_L_Bounds);
+    midiSyncSwitch.setBounds(midiSyncSwitch_Bounds);
+    delay_R_Slider.setBounds(delay_R_Bounds);
 
     auto feedbackKnobWidth = localBounds.getWidth() * 0.333;
 

@@ -269,7 +269,7 @@ void TauTauTaTauAudioProcessor::parameterChanged(const String& parameterID, floa
     if (parameterID == "FBR") feedback_R.setTargetValue(newValue);
     if (parameterID == "FBX") feedback_X.setTargetValue(newValue);
 
-    if (parameterID == "SyncToMidi") syncToMidi = newValue != 0.f;  // syncToMidi will be true if newValue is not 0.f, flase if it is.
+    if (parameterID == "SyncToMidi") syncToMidi = newValue == 0.f;  // syncToMidi will be true if newValue is not 0.f, flase if it is.
 
     if (parameterID == "Dry") dry = newValue;
 }
