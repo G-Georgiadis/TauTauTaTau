@@ -50,6 +50,21 @@ private:
         Right
     };
 
+    enum NoteDuration
+    {
+        Bar8,
+        Bar4,
+        Bar3,
+        Bar2,
+        Bar,
+        HalfNote,
+        QuarterNote,
+        EighthNote,
+        SixteenthNote,
+        ThirtysecondthNote,
+        SixtyfourthNote
+    };
+
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     
     int maximumDelayInSamples;
@@ -57,9 +72,19 @@ private:
     SmoothedValue<float> delayMs_L, delayMs_R;
     SmoothedValue<float> feedback_L, feedback_R, feedback_X;
 
+    bool syncToMidi;
+
     bool dry;
 
     dsp::DelayLine<float> delayLine_L, delayLine_R;
+
+    double tempo;
+    NoteDuration noteDuration_L, noteDuration_R;
+    
+    /** Returns the note duration in seconds of the given tempo and note duration */
+    float getNoteDurationSeconds(double tempo, NoteDuration noteDuration);
+
+    IIRFilter filter_L, filter_R;
 
     // Inherited via Listener
     void parameterChanged(const String& parameterID, float newValue) override;
