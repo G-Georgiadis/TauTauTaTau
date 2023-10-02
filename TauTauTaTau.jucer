@@ -8,6 +8,10 @@
               pluginCharacteristicsValue="pluginWantsMidiIn">
   <MAINGROUP id="suTo7R" name="TauTauTaTau">
     <GROUP id="{E697AB61-2806-DB28-6097-0DFFC28F5BE2}" name="Source">
+      <FILE id="c44SOB" name="MidiSyncSwitch.cpp" compile="1" resource="0"
+            file="Source/MidiSyncSwitch.cpp"/>
+      <FILE id="HsOyVE" name="MidiSyncSwitch.h" compile="0" resource="0"
+            file="Source/MidiSyncSwitch.h"/>
       <FILE id="OcSvCJ" name="DryButton.cpp" compile="1" resource="0" file="Source/DryButton.cpp"/>
       <FILE id="RUfQ3a" name="DryButton.h" compile="0" resource="0" file="Source/DryButton.h"/>
       <FILE id="ZQm7z6" name="ValueIndicator.cpp" compile="1" resource="0"

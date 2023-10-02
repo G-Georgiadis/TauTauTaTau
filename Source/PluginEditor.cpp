@@ -2,20 +2,22 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-TauTauTaTauAudioProcessorEditor::TauTauTaTauAudioProcessorEditor (TauTauTaTauAudioProcessor& p)
-    : AudioProcessorEditor (&p),
-    audioProcessor (p),
+TauTauTaTauAudioProcessorEditor::TauTauTaTauAudioProcessorEditor(TauTauTaTauAudioProcessor& p)
+    : AudioProcessorEditor(&p),
+    audioProcessor(p),
     delay_L_Slider("Delay L"),
     delay_R_Slider("Delay R"),
     feedback_L_Slider("Feedback L"),
     feedback_X_Slider("X Feedback"),
     feedback_R_Slider("Feedback R"),
+    midiSyncSwitch(),
     dry_Button(),
     delay_L_Slider_Attachment(p.apvts, "DelayL", delay_L_Slider),
     delay_R_Slider_Attachment(p.apvts, "DelayR", delay_R_Slider),
     feedback_L_Slider_Attachment(p.apvts, "FBL", feedback_L_Slider),
     feedback_X_Slider_Attachment(p.apvts, "FBX", feedback_X_Slider),
     feedback_R_Slider_Attachment(p.apvts, "FBR", feedback_R_Slider),
+    midiSyncSwitch_Attachment(p.apvts, "SyncToMidi", midiSyncSwitch),
     dry_Button_Attachment(p.apvts, "Dry", dry_Button),
     gradient()
 
@@ -27,6 +29,7 @@ TauTauTaTauAudioProcessorEditor::TauTauTaTauAudioProcessorEditor (TauTauTaTauAud
     addAndMakeVisible(feedback_L_Slider);
     addAndMakeVisible(feedback_X_Slider);
     addAndMakeVisible(feedback_R_Slider);
+    addAndMakeVisible(midiSyncSwitch);
     addAndMakeVisible(dry_Button);
 
     delay_L_Slider.setTextValueSuffix("sec");
@@ -49,7 +52,8 @@ void TauTauTaTauAudioProcessorEditor::resized()
     auto localBounds = getLocalBounds();
     auto topBounds = localBounds.removeFromTop(localBounds.getHeight() * 0.5);
 
-    delay_L_Slider.setBounds(topBounds.removeFromLeft(topBounds.getWidth() * 0.5));
+    delay_L_Slider.setBounds(topBounds.removeFromLeft(topBounds.getWidth() * 0.4));
+    midiSyncSwitch.setBounds(topBounds.removeFromLeft(topBounds.getWidth() * 0.3333));
     delay_R_Slider.setBounds(topBounds);
 
     auto feedbackKnobWidth = localBounds.getWidth() * 0.333;
@@ -57,6 +61,8 @@ void TauTauTaTauAudioProcessorEditor::resized()
     feedback_L_Slider.setBounds(localBounds.getX(), localBounds.getY(), feedbackKnobWidth, localBounds.getHeight());
     feedback_X_Slider.setBounds(feedbackKnobWidth, localBounds.getY(), feedbackKnobWidth, localBounds.getHeight());
     feedback_R_Slider.setBounds(feedbackKnobWidth * 2, localBounds.getY(), feedbackKnobWidth, localBounds.getHeight());
+
+    
 
     dry_Button.setBounds(localBounds.getX() + 10, localBounds.getHeight() - 25, 30, 15);
 

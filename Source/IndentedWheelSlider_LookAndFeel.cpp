@@ -88,8 +88,8 @@ Label* IndentedWheelSlider_LookAndFeel::createSliderTextBox(Slider& slider)
 
 void IndentedWheelSlider_LookAndFeel::makeGradients()
 {
-	normalGradient = ColourGradient(Colours::whitesmoke.darker(0.2), rotaryKnobBounds.getTopRight().toFloat(), Colours::whitesmoke, rotaryKnobBounds.getBottomLeft().toFloat(), false);
-	reverseGradient = ColourGradient(Colours::whitesmoke, rotaryKnobBounds.getTopRight().toFloat(), Colours::whitesmoke.darker(0.2), rotaryKnobBounds.getBottomLeft().toFloat(), false);
+	normalGradient = ColourGradient(Colours::whitesmoke.darker(0.95), rotaryKnobBounds.getTopRight().toFloat(), Colours::whitesmoke, rotaryKnobBounds.getBottomLeft().toFloat(), false);
+	reverseGradient = ColourGradient(Colours::whitesmoke, rotaryKnobBounds.getTopRight().toFloat(), Colours::whitesmoke.darker(0.95), rotaryKnobBounds.getBottomLeft().toFloat(), false);
 	/** Raise the flag to indicate colour gradients are initialized. */
 	colourGradientsInitialized = true;
 }

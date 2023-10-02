@@ -4,6 +4,7 @@
 #include "PluginProcessor.h"
 #include "IndentedWheelSlider.h"
 #include "DryButton.h"
+#include "MidiSyncSwitch.h"
 
 using namespace juce;
 
@@ -27,6 +28,8 @@ private:
     IndentedWheelSlider feedback_X_Slider;
     IndentedWheelSlider feedback_R_Slider;
 
+    MidiSyncSwitch midiSyncSwitch;
+
     DryButton dry_Button;
     
 
@@ -36,6 +39,8 @@ private:
     AudioProcessorValueTreeState::SliderAttachment feedback_L_Slider_Attachment;
     AudioProcessorValueTreeState::SliderAttachment feedback_X_Slider_Attachment;
     AudioProcessorValueTreeState::SliderAttachment feedback_R_Slider_Attachment;
+
+    AudioProcessorValueTreeState::ButtonAttachment midiSyncSwitch_Attachment;
 
     AudioProcessorValueTreeState::ButtonAttachment dry_Button_Attachment;
 
