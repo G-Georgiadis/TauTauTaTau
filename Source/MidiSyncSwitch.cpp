@@ -1,4 +1,13 @@
+/*****************************************************************//**
+ * \file   MidiSyncSwitch.cpp
+ * \brief  A 2-state switch made to control swicthing between Sec and Midi Sync.
+ * \note	Comments are in the header file, or hover mouse over keyword if your IDE supports it.
+ * 
+ * \author George Georgiadis
+ * \date   October 2023
+ *********************************************************************/
 #include "MidiSyncSwitch.h"
+#include "Constants.h"
 
 MidiSyncSwitch::MidiSyncSwitch() : state(true), colourGradientsInitialized(false)
 {
@@ -11,24 +20,23 @@ void MidiSyncSwitch::paintButton(Graphics& g, bool shouldDrawButtonAsHighlighted
 
 	auto localBounds = getLocalBounds();
 	auto topBounds = Rectangle<float>(localBounds.getX(), localBounds.getY(), localBounds.getWidth(), localBounds.getHeight() / 2);
-	//auto topBounds = localBounds.removeFromTop(localBounds.getHeight() / 2).toFloat();
 	auto bottomBounds = Rectangle<float>(localBounds.getX(), localBounds.getHeight() / 2, localBounds.getWidth(), localBounds.getHeight() / 2);
 
-	constexpr int cornerRadius = 5;
+	using namespace Constants::MidiSyncSwitch;
 
 	/** Draw the background */
 	g.setColour(Colours::grey);
-	g.fillRoundedRectangle(localBounds.toFloat(), cornerRadius);
+	g.fillRoundedRectangle(localBounds.toFloat(), CORNER_RADIUS);	// The corner radius can be set in Constants.h
 
 	if (!state)	// Draw the button off state
 	{
 		/** Background */
 		g.setColour(Colours::lightgrey);
-		g.fillRoundedRectangle(localBounds.toFloat(), cornerRadius);
+		g.fillRoundedRectangle(localBounds.toFloat(), CORNER_RADIUS);
 
 		/** Button cap */
 		g.setGradientFill(reverseGradient);
-		g.fillRoundedRectangle(bottomBounds, cornerRadius);
+		g.fillRoundedRectangle(bottomBounds, CORNER_RADIUS);
 
 		/** Text */
 		g.setColour(Colours::grey);
@@ -38,11 +46,11 @@ void MidiSyncSwitch::paintButton(Graphics& g, bool shouldDrawButtonAsHighlighted
 	{
 		/** Background */
 		g.setColour(Colours::darkorange);
-		g.fillRoundedRectangle(localBounds.toFloat(), cornerRadius);
+		g.fillRoundedRectangle(localBounds.toFloat(), CORNER_RADIUS);
 
 		/** Button cap */
 		g.setGradientFill(reverseGradient);
-		g.fillRoundedRectangle(topBounds, cornerRadius);
+		g.fillRoundedRectangle(topBounds, CORNER_RADIUS);
 		
 		/** Text */
 		g.setColour(Colours::grey);		

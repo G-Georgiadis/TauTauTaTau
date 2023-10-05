@@ -1,3 +1,12 @@
+/*****************************************************************//**
+ * \file   IndentedWheelSlider.cpp
+ * \brief  An indented rotary slider.
+ * \note	Comments are in the header file, or hover mouse over keyword if your IDE supports it.
+ * 
+ * \author George Georgiadis
+ * \date   October 2023
+ *********************************************************************/
+
 #include "IndentedWheelSlider.h"
 
 IndentedWheelSlider::IndentedWheelSlider(const String titleText) : indentedWheelSlider_LookAndFeel(titleText)
@@ -6,7 +15,8 @@ IndentedWheelSlider::IndentedWheelSlider(const String titleText) : indentedWheel
 
     this->setSliderStyle(Slider::RotaryVerticalDrag);
 
-    this->setNumDecimalPlacesToDisplay(2);
+    /** The value should be set in Constants.h */
+    this->setNumDecimalPlacesToDisplay(Constants::IndentedRotarySliderTextBox::NUMBER_OF_DECIMAL_DIGITS);
 }
 
 IndentedWheelSlider::~IndentedWheelSlider()
