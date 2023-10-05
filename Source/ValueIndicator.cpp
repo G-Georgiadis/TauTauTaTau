@@ -1,10 +1,13 @@
+/*****************************************************************//**
+ * \file    ValueIndicator.cpp
+ * \brief   A simple arc used to display the value selected in the IndentedWheelSlider
+ * \note    Comments are in the header file, or hover mouse over keyword if your IDE supports it.
+ * 
+ * \author George Georgiadis
+ * \date   October 2023
+ *********************************************************************/
+
 #include "ValueIndicator.h"
-
-ValueIndicator::ValueIndicator()
-{
-    
-}
-
 void ValueIndicator::draw(Graphics& g, Rectangle<int> bounds, float sliderPosProportional, float rotaryStartAngle, float rotaryEndAngle, Slider& slider)
 {
     float lineThickness = 4;

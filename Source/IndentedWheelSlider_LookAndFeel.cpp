@@ -1,3 +1,12 @@
+/*****************************************************************//**
+ * \file	IndentedWheelSlider_LookAndFeel.cpp
+ * \brief	Defines how the IndentedWheelSlider looks and interacts.
+ * \note	Comments are in the header file, or hover mouse over keyword if your IDE supports it.
+ * 
+ * \author	George Georgiadis
+ * \date	October 2023
+ *********************************************************************/
+
 #include "IndentedWheelSlider_LookAndFeel.h"
 
 IndentedWheelSlider_LookAndFeel::IndentedWheelSlider_LookAndFeel(const String newTitleText)
@@ -17,14 +26,18 @@ Slider::SliderLayout IndentedWheelSlider_LookAndFeel::getSliderLayout(Slider& sl
 
 	Rectangle<int> localBounds = slider.getLocalBounds();
 	layout.sliderBounds = localBounds;
+	/** The textbox bounds are reduced so that text doesn't overlay the innerbevel because it looks bad. */
 	layout.textBoxBounds = localBounds.reduced(0.2 * localBounds.getWidth(), 0.4f * localBounds.getHeight());
 	/** The value text box is pushed to the bottom half of the control bounds to leave space for the title label. */
 	layout.textBoxBounds.setTop(localBounds.getHeight() * 0.5f);
+
 	return layout;
 }
 
 void IndentedWheelSlider_LookAndFeel::drawRotarySlider(Graphics& g, int x, int y, int width, int height, float sliderPosProportional, float rotaryStartAngle, float rotaryEndAngle, Slider& slider)
 {
+	using namespace Constants::IndentedRotarySliderTextBox;
+
 	Rectangle<int> localBounds = slider.getLocalBounds();
 
 	side = jmin(localBounds.getHeight(), localBounds.getWidth());
@@ -32,9 +45,9 @@ void IndentedWheelSlider_LookAndFeel::drawRotarySlider(Graphics& g, int x, int y
 	rotaryKnobBounds = Rectangle<int>(localBounds.getCentreX() - halfSide, localBounds.getCentreY() - halfSide, side, side);
 	localBounds.setBottom(localBounds.getHeight() * 0.5f);
 	auto titleLabelBounds = localBounds;
-	outerBevelBounds = rotaryKnobBounds.reduced(marginThickness);
-	indicatorBounds = rotaryKnobBounds.reduced(outerBevelThickness);
-	innerBevelBounds = indicatorBounds.reduced(indicatorThickness);
+	outerBevelBounds = rotaryKnobBounds.reduced(MARGIN_THICKNESS);		// Should be set in Constants.h
+	indicatorBounds = rotaryKnobBounds.reduced(OUTER_BEVEL_THICKNESS);	// Should be set in Constants.h
+	innerBevelBounds = indicatorBounds.reduced(INDICATOR_THICKNESS);	// Should be set in Constants.h
 
 	/** Create the colour gradients if they don't exist. */
 	if (!colourGradientsInitialized) makeGradients();
@@ -81,6 +94,10 @@ Label* IndentedWheelSlider_LookAndFeel::createSliderTextBox(Slider& slider)
 	sliderTextBoxPtr->setColour(juce::Label::backgroundWhenEditingColourId, juce::Colours::black);
 	sliderTextBoxPtr->setColour(juce::Label::outlineWhenEditingColourId, juce::Colours::beige);
 
+	/**
+	 * This stops the user from being able to set a value directly,
+	 * but also allows user to use the control through the slider textbox area.
+	 */
 	sliderTextBoxPtr->setInterceptsMouseClicks(false, true);
 
 	return sliderTextBoxPtr;
@@ -88,8 +105,8 @@ Label* IndentedWheelSlider_LookAndFeel::createSliderTextBox(Slider& slider)
 
 void IndentedWheelSlider_LookAndFeel::makeGradients()
 {
-	normalGradient = ColourGradient(Colours::whitesmoke.darker(0.95), rotaryKnobBounds.getTopRight().toFloat(), Colours::whitesmoke, rotaryKnobBounds.getBottomLeft().toFloat(), false);
-	reverseGradient = ColourGradient(Colours::whitesmoke, rotaryKnobBounds.getTopRight().toFloat(), Colours::whitesmoke.darker(0.95), rotaryKnobBounds.getBottomLeft().toFloat(), false);
+	normalGradient = ColourGradient(Colours::beige.darker(0.95), rotaryKnobBounds.getTopRight().toFloat(), Colours::beige, rotaryKnobBounds.getBottomLeft().toFloat(), false);
+	reverseGradient = ColourGradient(Colours::beige, rotaryKnobBounds.getTopRight().toFloat(), Colours::beige.darker(0.95), rotaryKnobBounds.getBottomLeft().toFloat(), false);
 	/** Raise the flag to indicate colour gradients are initialized. */
 	colourGradientsInitialized = true;
 }

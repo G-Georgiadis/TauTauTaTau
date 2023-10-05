@@ -1,19 +1,21 @@
-/*
-  ==============================================================================
-
-    This file contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
-*/
+/*****************************************************************//**
+ * \file    PluginProcessor.cpp
+ * \brief   The DSP implementeation of the plugin
+ * \note	Comments are in the header file, or hover mouse over keyword if your IDE supports it.
+ * 
+ * \author George Georgiadis
+ * \date   October 2023
+ *********************************************************************/
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
 //==============================================================================
+
 TauTauTaTauAudioProcessor::TauTauTaTauAudioProcessor()
     : maximumDelayInSamples(1),
-    delayMs_L(*apvts.getRawParameterValue("DelayL")),
-    delayMs_R(*apvts.getRawParameterValue("DelayR")),
+    delaySec_L(*apvts.getRawParameterValue("DelayL")),
+    delaySec_R(*apvts.getRawParameterValue("DelayR")),
     feedback_L(*apvts.getRawParameterValue("FBL")),
     feedback_R(*apvts.getRawParameterValue("FBR")),
     feedback_X(*apvts.getRawParameterValue("FBX")),
@@ -36,11 +38,8 @@ TauTauTaTauAudioProcessor::TauTauTaTauAudioProcessor()
     apvts.addParameterListener("Dry", this);
 }
 
-TauTauTaTauAudioProcessor::~TauTauTaTauAudioProcessor()
-{
-}
-
 //==============================================================================
+
 const juce::String TauTauTaTauAudioProcessor::getName() const
 {
     return JucePlugin_Name;
@@ -91,21 +90,24 @@ void TauTauTaTauAudioProcessor::changeProgramName (int index, const juce::String
 }
 
 //==============================================================================
+
 void TauTauTaTauAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
+    using namespace Constants::DSP;
+
     dsp::ProcessSpec spec{ sampleRate, samplesPerBlock, 1 };
 
     delayLine_L.prepare(spec);
     delayLine_R.prepare(spec);
 
-    delayLine_L.setMaximumDelayInSamples(sampleRate * 30.f);
-    delayLine_R.setMaximumDelayInSamples(sampleRate * 30.f);
+    delayLine_L.setMaximumDelayInSamples(sampleRate * MAXIMUM_DELAY_IN_SAMPLES);    // MAXIMUM_DELAY_IN_SAMPLES can be set in Constant.h
+    delayLine_R.setMaximumDelayInSamples(sampleRate * MAXIMUM_DELAY_IN_SAMPLES);
 
     delayLine_L.setDelay(*apvts.getRawParameterValue("DelayL") * sampleRate);
     delayLine_R.setDelay(*apvts.getRawParameterValue("DelayR") * sampleRate);
 
-    delayMs_L.reset(sampleRate, 0.05);
-    delayMs_R.reset(sampleRate, 0.05);
+    delaySec_L.reset(sampleRate, 0.05);
+    delaySec_R.reset(sampleRate, 0.05);
 
     filter_L.setCoefficients(IIRCoefficients::makeLowPass(sampleRate, 500));
     filter_R.setCoefficients(IIRCoefficients::makeLowPass(sampleRate, 500));
@@ -130,21 +132,21 @@ void TauTauTaTauAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     {
         AudioPlayHead* audioPlayHead = getPlayHead();
         auto position = audioPlayHead->getPosition();
-        if (position.hasValue()) // If the host returned something
+        if (position.hasValue()) // If the host returned position information
         {
             Optional<double> bpm = position->getBpm();
             if (bpm.hasValue()) // If the host returned a bpm value
                 tempo = *bpm;
 
-            delayMs_L.setValue(getNoteDurationSeconds(tempo, noteDuration_L), true);
-            delayMs_R.setValue(getNoteDurationSeconds(tempo, noteDuration_R), true);
+            delaySec_L.setCurrentAndTargetValue(getNoteDurationSeconds(tempo, noteDuration_L));
+            delaySec_R.setCurrentAndTargetValue(getNoteDurationSeconds(tempo, noteDuration_R));
         }
     }
 
     for (int sampleIndex = 0; sampleIndex < buffer.getNumSamples(); sampleIndex++)
     {
-        delayedSample_L = delayLine_L.popSample(0, delayMs_L.getNextValue() * sampleRate, true);
-        delayedSample_R = delayLine_R.popSample(0, delayMs_R.getNextValue() * sampleRate, true);
+        delayedSample_L = delayLine_L.popSample(0, delaySec_L.getNextValue() * sampleRate, true);
+        delayedSample_R = delayLine_R.popSample(0, delaySec_R.getNextValue() * sampleRate, true);
 
         auto currentSampleL = buffer.getSample(Channels::Left, sampleIndex);
         auto currentSampleR = buffer.getSample(Channels::Right, sampleIndex);
@@ -169,10 +171,6 @@ void TauTauTaTauAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
 }
 
 //==============================================================================
-bool TauTauTaTauAudioProcessor::hasEditor() const
-{
-    return true; // (change this to false if you choose to not supply an editor)
-}
 
 juce::AudioProcessorEditor* TauTauTaTauAudioProcessor::createEditor()
 {
@@ -180,7 +178,13 @@ juce::AudioProcessorEditor* TauTauTaTauAudioProcessor::createEditor()
     return new TauTauTaTauAudioProcessorEditor (*this);
 }
 
+bool TauTauTaTauAudioProcessor::hasEditor() const
+{
+    return true; // (change this to false if you choose to not supply an editor)
+}
+
 //==============================================================================
+
 void TauTauTaTauAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
     auto state = apvts.copyState();
@@ -262,8 +266,8 @@ float TauTauTaTauAudioProcessor::getNoteDurationSeconds(double tempo, NoteDurati
 
 void TauTauTaTauAudioProcessor::parameterChanged(const String& parameterID, float newValue)
 {
-    if (parameterID == "DelayL") delayMs_L.setTargetValue(newValue);
-    if (parameterID == "DelayR") delayMs_R.setTargetValue(newValue);
+    if (parameterID == "DelayL") delaySec_L.setTargetValue(newValue);
+    if (parameterID == "DelayR") delaySec_R.setTargetValue(newValue);
 
     if (parameterID == "FBL") feedback_L.setTargetValue(newValue);
     if (parameterID == "FBR") feedback_R.setTargetValue(newValue);

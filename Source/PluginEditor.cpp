@@ -1,3 +1,12 @@
+/*****************************************************************//**
+ * \file   PluginEditor.cpp
+ * \brief  Defines the UI of the plugin.
+ * \note	Comments are in the header file, or hover mouse over keyword if your IDE supports it.
+ * 
+ * \author George Georgiadis
+ * \date   October 2023
+ *********************************************************************/
+
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
