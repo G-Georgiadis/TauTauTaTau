@@ -140,8 +140,8 @@ void TauTauTaTauAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
             if (bpm.hasValue()) // If the host returned a bpm value
                 tempo = *bpm;
 
-            delaySec_L.setCurrentAndTargetValue(getNoteDurationSeconds(tempo, noteDuration_L));
-            delaySec_R.setCurrentAndTargetValue(getNoteDurationSeconds(tempo, noteDuration_R));
+            delaySec_L.setTargetValue(getNoteDurationSeconds(tempo, noteDuration_L));
+            delaySec_R.setTargetValue(getNoteDurationSeconds(tempo, noteDuration_R));
         }
     }
 
@@ -288,18 +288,33 @@ float TauTauTaTauAudioProcessor::getNoteDurationSeconds(double tempo, String not
 void TauTauTaTauAudioProcessor::parameterChanged(const String& parameterID, float newValue)
 {
     if (parameterID == "DelayL") delaySec_L.setTargetValue(newValue);
-    if (parameterID == "DelayR") delaySec_R.setTargetValue(newValue);
+    else if (parameterID == "DelayR") delaySec_R.setTargetValue(newValue);
 
-    if (parameterID == "NoteDurationL") noteDuration_L = Constants::DropDownMenus::NOTE_DURATIONS[static_cast<int>(newValue)];
-    if (parameterID == "NoteDurationR") noteDuration_R = Constants::DropDownMenus::NOTE_DURATIONS[static_cast<int>(newValue)];
+    else if (parameterID == "NoteDurationL")
+    {
+        noteDuration_L = Constants::DropDownMenus::NOTE_DURATIONS[static_cast<int>(newValue)];
+        //apvts.getParameter("DelayL")->setValue(getNoteDurationSeconds(tempo, noteDuration_L));
+        apvts.getParameterAsValue("DelayL").setValue(newValue);
+    }
+    else if (parameterID == "NoteDurationR")
+    {
+        noteDuration_R = Constants::DropDownMenus::NOTE_DURATIONS[static_cast<int>(newValue)];
+        //apvts.getParameter("DelayR")->setValue(getNoteDurationSeconds(tempo, noteDuration_R));
+        apvts.getParameterAsValue("DelayR").setValue(newValue);
+    }
 
-    if (parameterID == "FBL") feedback_L.setTargetValue(newValue);
-    if (parameterID == "FBR") feedback_R.setTargetValue(newValue);
-    if (parameterID == "FBX") feedback_X.setTargetValue(newValue);
+    else if (parameterID == "FBL") feedback_L.setTargetValue(newValue);
+    else if (parameterID == "FBR") feedback_R.setTargetValue(newValue);
+    else if (parameterID == "FBX") feedback_X.setTargetValue(newValue);
 
-    if (parameterID == "SyncToMidi") syncToMidi = newValue == 0.f;  // syncToMidi will be true if newValue is not 0.f, flase if it is.
+    else if (parameterID == "SyncToMidi")
+    {
+        syncToMidi = newValue == 0.f;  // syncToMidi will be true if newValue is not 0.f, flase if it is.
+        apvts.getParameterAsValue("DelayL").setValue(getNoteDurationSeconds(tempo, noteDuration_L));
+        apvts.getParameterAsValue("DelayR").setValue(getNoteDurationSeconds(tempo, noteDuration_R));
+    }
 
-    if (parameterID == "Dry") dry = newValue;
+    else if (parameterID == "Dry") dry = newValue;
 }
 
 
