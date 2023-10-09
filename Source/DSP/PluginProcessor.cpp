@@ -8,7 +8,7 @@
  *********************************************************************/
 
 #include "PluginProcessor.h"
-#include "PluginEditor.h"
+#include "..\UI\PluginEditor.h"
 
 //==============================================================================
 
@@ -25,9 +25,7 @@ TauTauTaTauAudioProcessor::TauTauTaTauAudioProcessor()
     delayLine_R(maximumDelayInSamples),
     tempo(120.0),
     noteDuration_L(Constants::DropDownMenus::NOTE_DURATIONS[static_cast<int>(*apvts.getRawParameterValue("NoteDurationL"))]),
-    noteDuration_R(Constants::DropDownMenus::NOTE_DURATIONS[static_cast<int>(*apvts.getRawParameterValue("NoteDurationR"))]),
-    filter_L(),
-    filter_R()
+    noteDuration_R(Constants::DropDownMenus::NOTE_DURATIONS[static_cast<int>(*apvts.getRawParameterValue("NoteDurationR"))])
 {
     apvts.addParameterListener("DelayL", this);
     apvts.addParameterListener("DelayR", this);
@@ -110,12 +108,6 @@ void TauTauTaTauAudioProcessor::prepareToPlay (double sampleRate, int samplesPer
 
     delaySec_L.reset(sampleRate, 0.05);
     delaySec_R.reset(sampleRate, 0.05);
-
-    filter_L.setCoefficients(IIRCoefficients::makeLowPass(sampleRate, 500));
-    filter_R.setCoefficients(IIRCoefficients::makeLowPass(sampleRate, 500));
-
-    filter_L.reset();
-    filter_R.reset();
 }
 
 void TauTauTaTauAudioProcessor::releaseResources()
@@ -138,7 +130,7 @@ void TauTauTaTauAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
         {
             Optional<double> bpm = position->getBpm();
             if (bpm.hasValue()) // If the host returned a bpm value
-                tempo = *bpm;
+                tempo = static_cast<double>(*bpm);
 
             delaySec_L.setTargetValue(getNoteDurationSeconds(tempo, noteDuration_L));
             delaySec_R.setTargetValue(getNoteDurationSeconds(tempo, noteDuration_R));
@@ -153,11 +145,11 @@ void TauTauTaTauAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
         auto currentSampleL = buffer.getSample(Channels::Left, sampleIndex);
         auto currentSampleR = buffer.getSample(Channels::Right, sampleIndex);
 
-        filter_L.processSamples(&currentSampleL, 1);
-        filter_R.processSamples(&currentSampleR, 1);
-
         delayLine_L.pushSample(0, buffer.getSample(Channels::Left, sampleIndex) + delayedSample_L * feedback_L.getNextValue() + delayedSample_R * feedback_X.getCurrentValue());
         delayLine_R.pushSample(0, buffer.getSample(Channels::Right, sampleIndex) + delayedSample_R * feedback_R.getNextValue() + delayedSample_L * feedback_X.getCurrentValue());
+
+        
+
 
         if (dry)
         {
@@ -170,6 +162,8 @@ void TauTauTaTauAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
             buffer.setSample(Channels::Right, sampleIndex, softclip(delayedSample_R));
         }
     }
+
+
 }
 
 //==============================================================================

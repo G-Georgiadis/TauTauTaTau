@@ -2,8 +2,8 @@
 
 #pragma once
 #include "JuceHeader.h"
-#include "Constants.h"
-#include <map>
+#include "..\..\..\Constants.h"
+#include "NoteDurationDropDown_LookAndFeel.h"
 
 using namespace juce;
 
@@ -14,6 +14,6 @@ public:
 	~NoteDurationDropDown();
 
 private:
-
+	NoteDurationDropDown_LookAndFeel noteDurationDropDown_LookAndFeel;
 };
 

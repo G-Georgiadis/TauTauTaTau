@@ -8,11 +8,11 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "PluginProcessor.h"
-#include "IndentedWheelSlider.h"
-#include "DryButton.h"
-#include "MidiSyncSwitch.h"
-#include "NoteDurationDropDown.h"
+#include "..\DSP\PluginProcessor.h"
+#include "Controls/IndentedWheelSlider/IndentedWheelSlider.h"
+#include "Controls/DryButton/DryButton.h"
+#include "Controls/MidiSyncSwitch/MidiSyncSwitch.h"
+#include "Controls/NoteDurationDropDown/NoteDurationDropDown.h"
 
 using namespace juce;
 

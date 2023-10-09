@@ -7,7 +7,7 @@
  * \date   October 2023
  *********************************************************************/
 #include "MidiSyncSwitch.h"
-#include "Constants.h"
+#include "..\..\..\Constants.h"
 
 MidiSyncSwitch::MidiSyncSwitch() : state(false), colourGradientsInitialized(false)
 {
