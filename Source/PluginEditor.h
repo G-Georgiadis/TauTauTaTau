@@ -12,6 +12,7 @@
 #include "IndentedWheelSlider.h"
 #include "DryButton.h"
 #include "MidiSyncSwitch.h"
+#include "NoteDurationDropDown.h"
 
 using namespace juce;
 
@@ -34,6 +35,11 @@ private:
     /** Rotary slider controlling the right-channel delay time. */
     IndentedWheelSlider delay_R_Slider;
     
+    /** Left channel Combo Box with all the note durations for setting tempo-synced delay times. */
+    NoteDurationDropDown delay_L_ComboBox;
+    /** Right channel Combo Box with all the note durations for setting tempo-synced delay times. */
+    NoteDurationDropDown delay_R_ComboBox;
+
     /** Rotary slider controlling left-channel feedback. */
     IndentedWheelSlider feedback_L_Slider;
     /** Rotary slider controlling cross feedback. */
@@ -52,6 +58,11 @@ private:
     /** Slider attachment connecting the right-channel delay time parameter with the respective rotary slider. */
     AudioProcessorValueTreeState::SliderAttachment delay_R_Slider_Attachment;
     
+    /** ComboBox attachment connecting the left-channel delay time parameter with the respective ComboBox. */
+    AudioProcessorValueTreeState::ComboBoxAttachment delay_L_ComboBox_Attachment;
+    /** ComboBox attachment connecting the right-channel delay time parameter with the respective ComboBox. */
+    AudioProcessorValueTreeState::ComboBoxAttachment delay_R_ComboBox_Attachment;
+
     /** Slider attachment connecting the left-channel feedback parameter with the respective rotary slider. */
     AudioProcessorValueTreeState::SliderAttachment feedback_L_Slider_Attachment;
     /** Slider attachment connecting the cross feedback parameter with the respective rotary slider. */

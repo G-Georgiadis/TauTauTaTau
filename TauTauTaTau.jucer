@@ -8,6 +8,10 @@
               pluginCharacteristicsValue="pluginWantsMidiIn">
   <MAINGROUP id="suTo7R" name="TauTauTaTau">
     <GROUP id="{E697AB61-2806-DB28-6097-0DFFC28F5BE2}" name="Source">
+      <FILE id="rRMhtx" name="NoteDurationDropDown.cpp" compile="1" resource="0"
+            file="Source/NoteDurationDropDown.cpp"/>
+      <FILE id="nQSiRq" name="NoteDurationDropDown.h" compile="0" resource="0"
+            file="Source/NoteDurationDropDown.h"/>
       <FILE id="lJf3kE" name="Constants.h" compile="0" resource="0" file="Source/Constants.h"/>
       <FILE id="JGO7Nl" name="MidiSyncSwitch.cpp" compile="1" resource="0"
             file="Source/MidiSyncSwitch.cpp"/>

@@ -7,6 +7,8 @@
  *********************************************************************/
 
 #pragma once
+#include "JuceHeader.h"
+
 
 /**
  * Namespace that holds all the constants used in the TauTauTaTau cross deelay.
@@ -25,6 +27,42 @@ namespace Constants
 		/** The thickness of the rotary knob value indicator */
 		static constexpr int INDICATOR_THICKNESS = 4;
 	}
+
+	namespace DropDownMenus
+	{
+
+		static constexpr int DROP_DOWN_MENU_HEIGHT = 20;
+
+		static const juce::StringArray NOTE_DURATIONS =
+		{
+			"8 Bars",
+			"6 Bars",
+			"5 Bars",
+			"4 Bars",
+			"3 Bars",
+			"2 Bars",
+			"1 Bar",
+			"1/2d",
+			"1/2",
+			"1/2t",
+			"1/4d",
+			"1/4",
+			"1/4t",
+			"1/8d",
+			"1/8",
+			"1/8t",
+			"1/16d",
+			"1/16",
+			"1/16t",
+			"1/32d",
+			"1/32",
+			"1/32t",
+			"1/64d",
+			"1/64",
+			"1/64t"
+		};
+	}
+
 	/** Namespace that holds all the constants used in the MidiSyncSwitch. */
 	namespace MidiSyncSwitch
 	{

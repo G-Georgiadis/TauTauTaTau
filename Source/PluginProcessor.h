@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "Constants.h"
 
+
 using namespace juce;
 
 /** The audio processing side of the plugin. */
@@ -98,21 +99,21 @@ private:
         Right
     };
 
-    /** Enum with the common note duration names. */
-    enum NoteDuration
-    {
-        Bar8,
-        Bar4,
-        Bar3,
-        Bar2,
-        Bar,
-        HalfNote,
-        QuarterNote,
-        EighthNote,
-        SixteenthNote,
-        ThirtysecondthNote,
-        SixtyfourthNote
-    };
+    ///** Enum with the common note duration names. */
+    //enum NoteDuration
+    //{
+    //    Bar8,
+    //    Bar4,
+    //    Bar3,
+    //    Bar2,
+    //    Bar,
+    //    HalfNote,
+    //    QuarterNote,
+    //    EighthNote,
+    //    SixteenthNote,
+    //    ThirtysecondthNote,
+    //    SixtyfourthNote
+    //};
 
     /** Creates the parameter layout for the AudioProcessor value tree */
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
@@ -148,12 +149,12 @@ private:
     double tempo;
 
     /** Delay time as note duration for the left-channel. */
-    NoteDuration noteDuration_L;
+    String noteDuration_L;
     /** Delay time as note duration for the right-channel. */
-    NoteDuration noteDuration_R;
+    String noteDuration_R;
 
     /** Returns the note duration in seconds of the given tempo and note duration */
-    float getNoteDurationSeconds(double tempo, NoteDuration noteDuration);
+    float getNoteDurationSeconds(double tempo, String noteDuration);
 
     /** Filters to be used inside the feedback loops. */
     IIRFilter filter_L, filter_R;
