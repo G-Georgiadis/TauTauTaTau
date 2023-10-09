@@ -13,7 +13,7 @@ class NoteDurationDropDown_LookAndFeel : public LookAndFeel_V4
 		Rectangle<int> boxBounds(0, 0, width, height);
 
 		/** Background */
-		g.setColour(Colours::whitesmoke);
+		g.setColour(Colours::beige);
 		g.fillRoundedRectangle(boxBounds.toFloat(), Constants::MidiSyncSwitch::CORNER_RADIUS);
 
 		g.setColour(Colours::lightgrey);

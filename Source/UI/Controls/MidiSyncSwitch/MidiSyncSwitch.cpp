@@ -25,13 +25,13 @@ void MidiSyncSwitch::paintButton(Graphics& g, bool shouldDrawButtonAsHighlighted
 	using namespace Constants::MidiSyncSwitch;
 
 	/** Draw the background */
-	g.setColour(Colours::grey);
+	g.setColour(Colours::beige);
 	g.fillRoundedRectangle(localBounds.toFloat(), CORNER_RADIUS);	// The corner radius can be set in Constants.h
 
 	if (!state)	// Draw the button off state
 	{
 		/** Background */
-		g.setColour(Colours::lightgrey);
+		g.setColour(Colours::beige.brighter(0.5));
 		g.fillRoundedRectangle(localBounds.toFloat(), CORNER_RADIUS);
 
 		/** Button cap */
@@ -61,8 +61,8 @@ void MidiSyncSwitch::paintButton(Graphics& g, bool shouldDrawButtonAsHighlighted
 void MidiSyncSwitch::makeGradients()
 {
 	auto localBounds = getLocalBounds();
-	normalGradient = ColourGradient(Colours::whitesmoke.darker(0.95), localBounds.getTopRight().toFloat(), Colours::whitesmoke, localBounds.getBottomLeft().toFloat(), false);
-	reverseGradient = ColourGradient(Colours::whitesmoke, localBounds.getTopRight().toFloat(), Colours::whitesmoke.darker(0.95), localBounds.getBottomLeft().toFloat(), false);
+	normalGradient = ColourGradient(Colours::beige.darker(0.95), localBounds.getTopRight().toFloat(), Colours::beige, localBounds.getBottomLeft().toFloat(), false);
+	reverseGradient = ColourGradient(Colours::beige, localBounds.getTopRight().toFloat(), Colours::beige.darker(0.95), localBounds.getBottomLeft().toFloat(), false);
 	/** Raise the flag to indicate colour gradients are initialized. */
 	colourGradientsInitialized = true;
 }
