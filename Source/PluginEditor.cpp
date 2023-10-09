@@ -63,15 +63,6 @@ void TauTauTaTauAudioProcessorEditor::paint (juce::Graphics& g)
     g.fillAll();
 
     if (midiSyncSwitch.getToggleState())
-    {   //MidiSync is disabled, show delays in Sec.
-        /** Make the combo boxes invisible if they are visible. */
-        if (delay_L_ComboBox.isVisible()) delay_L_ComboBox.setVisible(false);
-        if (delay_R_ComboBox.isVisible()) delay_R_ComboBox.setVisible(false);
-        /** Make the delay time knobs visible if they are not. */
-        if (!delay_L_Slider.isVisible()) delay_L_Slider.setVisible(true);
-        if (!delay_R_Slider.isVisible()) delay_R_Slider.setVisible(true);
-    }
-    else
     {   //MidiSync is enabled, show delay time drop downs
         /** Make the delay time knobs invisible if they are visible. */
         if (delay_L_Slider.isVisible()) delay_L_Slider.setVisible(false);
@@ -81,6 +72,16 @@ void TauTauTaTauAudioProcessorEditor::paint (juce::Graphics& g)
         if (!delay_R_ComboBox.isVisible()) delay_R_ComboBox.setVisible(true);
 
     }
+    else
+    {   //MidiSync is disabled, show delays in Sec.
+    /** Make the combo boxes invisible if they are visible. */
+        if (delay_L_ComboBox.isVisible()) delay_L_ComboBox.setVisible(false);
+        if (delay_R_ComboBox.isVisible()) delay_R_ComboBox.setVisible(false);
+        /** Make the delay time knobs visible if they are not. */
+        if (!delay_L_Slider.isVisible()) delay_L_Slider.setVisible(true);
+        if (!delay_R_Slider.isVisible()) delay_R_Slider.setVisible(true);
+    }
+    
 }
 
 void TauTauTaTauAudioProcessorEditor::resized()

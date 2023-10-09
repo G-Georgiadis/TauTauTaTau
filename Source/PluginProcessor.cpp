@@ -309,7 +309,7 @@ void TauTauTaTauAudioProcessor::parameterChanged(const String& parameterID, floa
 
     else if (parameterID == "SyncToMidi")
     {
-        syncToMidi = newValue == 0.f;  // syncToMidi will be true if newValue is not 0.f, flase if it is.
+        syncToMidi = newValue != 0.f;  // syncToMidi will be true if newValue is anything but 0.0, flase if it is 0.0.
         apvts.getParameterAsValue("DelayL").setValue(getNoteDurationSeconds(tempo, noteDuration_L));
         apvts.getParameterAsValue("DelayR").setValue(getNoteDurationSeconds(tempo, noteDuration_R));
     }
