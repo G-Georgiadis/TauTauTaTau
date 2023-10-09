@@ -9,9 +9,9 @@
 #include "MidiSyncSwitch.h"
 #include "Constants.h"
 
-MidiSyncSwitch::MidiSyncSwitch() : state(true), colourGradientsInitialized(false)
+MidiSyncSwitch::MidiSyncSwitch() : state(false), colourGradientsInitialized(false)
 {
-	this->onClick = [&]() { state = !state; };
+	this->onClick = [&]() { state = !state; };	// Clicking toggles state
 }
 
 void MidiSyncSwitch::paintButton(Graphics& g, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown)
