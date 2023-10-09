@@ -8,8 +8,8 @@
 
 #pragma once
 #include "JuceHeader.h"
-#include "ValueIndicator.h"
-#include "Constants.h"
+#include "ValueIndicator/ValueIndicator.h"
+#include "..\..\..\Constants.h"
 
 using namespace juce;
 

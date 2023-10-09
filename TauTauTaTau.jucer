@@ -8,37 +8,55 @@
               pluginCharacteristicsValue="pluginWantsMidiIn">
   <MAINGROUP id="suTo7R" name="TauTauTaTau">
     <GROUP id="{E697AB61-2806-DB28-6097-0DFFC28F5BE2}" name="Source">
-      <FILE id="rRMhtx" name="NoteDurationDropDown.cpp" compile="1" resource="0"
-            file="Source/NoteDurationDropDown.cpp"/>
-      <FILE id="nQSiRq" name="NoteDurationDropDown.h" compile="0" resource="0"
-            file="Source/NoteDurationDropDown.h"/>
-      <FILE id="lJf3kE" name="Constants.h" compile="0" resource="0" file="Source/Constants.h"/>
-      <FILE id="JGO7Nl" name="MidiSyncSwitch.cpp" compile="1" resource="0"
-            file="Source/MidiSyncSwitch.cpp"/>
-      <FILE id="HsOyVE" name="MidiSyncSwitch.h" compile="0" resource="0"
-            file="Source/MidiSyncSwitch.h"/>
-      <FILE id="OcSvCJ" name="DryButton.cpp" compile="1" resource="0" file="Source/DryButton.cpp"/>
-      <FILE id="RUfQ3a" name="DryButton.h" compile="0" resource="0" file="Source/DryButton.h"/>
-      <FILE id="ZQm7z6" name="ValueIndicator.cpp" compile="1" resource="0"
-            file="Source/ValueIndicator.cpp"/>
-      <FILE id="qwDhvk" name="ValueIndicator.h" compile="0" resource="0"
-            file="Source/ValueIndicator.h"/>
-      <FILE id="zD8FV9" name="IndentedWheelSlider.cpp" compile="1" resource="0"
-            file="Source/IndentedWheelSlider.cpp"/>
-      <FILE id="Y6SH0I" name="IndentedWheelSlider.h" compile="0" resource="0"
-            file="Source/IndentedWheelSlider.h"/>
-      <FILE id="SMb3au" name="IndentedWheelSlider_LookAndFeel.cpp" compile="1"
-            resource="0" file="Source/IndentedWheelSlider_LookAndFeel.cpp"/>
-      <FILE id="gYbfoS" name="IndentedWheelSlider_LookAndFeel.h" compile="0"
-            resource="0" file="Source/IndentedWheelSlider_LookAndFeel.h"/>
-      <FILE id="sF6k9Y" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="Source/PluginProcessor.cpp"/>
-      <FILE id="GzAnJB" name="PluginProcessor.h" compile="0" resource="0"
-            file="Source/PluginProcessor.h"/>
-      <FILE id="J4oRpJ" name="PluginEditor.cpp" compile="1" resource="0"
-            file="Source/PluginEditor.cpp"/>
-      <FILE id="Qjx6j6" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <GROUP id="{511C1234-6042-0244-C7CB-CA1988D8C910}" name="DSP">
+        <FILE id="kDR8TW" name="PluginProcessor.cpp" compile="1" resource="0"
+              file="Source/DSP/PluginProcessor.cpp"/>
+        <FILE id="uFnpDI" name="PluginProcessor.h" compile="0" resource="0"
+              file="Source/DSP/PluginProcessor.h"/>
+      </GROUP>
+      <GROUP id="{F59E48C6-B9FE-E84C-2F99-929F08F3D0A4}" name="UI">
+        <GROUP id="{3296F19A-53C9-A347-0B9C-19B319AE95E1}" name="Controls">
+          <GROUP id="{793BB2CE-6349-CABE-E18D-19E4BC7366A7}" name="NoteDurationDropDown">
+            <FILE id="H4x8Ze" name="NoteDurationDropDown.cpp" compile="1" resource="0"
+                  file="Source/UI/Controls/NoteDurationDropDown/NoteDurationDropDown.cpp"/>
+            <FILE id="OdcZ5u" name="NoteDurationDropDown.h" compile="0" resource="0"
+                  file="Source/UI/Controls/NoteDurationDropDown/NoteDurationDropDown.h"/>
+            <FILE id="wvdva4" name="NoteDurationDropDown_LookAndFeel.h" compile="0"
+                  resource="0" file="Source/UI/Controls/NoteDurationDropDown/NoteDurationDropDown_LookAndFeel.h"/>
+          </GROUP>
+          <GROUP id="{431C8BFA-15C3-2C06-E559-CA7F0BE880AC}" name="IndentedWheelSlider">
+            <GROUP id="{27309801-292B-47F0-55FC-054B237CC655}" name="ValueIndicator">
+              <FILE id="Xzjm5d" name="ValueIndicator.cpp" compile="1" resource="0"
+                    file="Source/UI/Controls/IndentedWheelSlider/ValueIndicator/ValueIndicator.cpp"/>
+              <FILE id="XW6qJV" name="ValueIndicator.h" compile="0" resource="0"
+                    file="Source/UI/Controls/IndentedWheelSlider/ValueIndicator/ValueIndicator.h"/>
+            </GROUP>
+            <FILE id="pTdyEm" name="IndentedWheelSlider.cpp" compile="1" resource="0"
+                  file="Source/UI/Controls/IndentedWheelSlider/IndentedWheelSlider.cpp"/>
+            <FILE id="qcAbXp" name="IndentedWheelSlider.h" compile="0" resource="0"
+                  file="Source/UI/Controls/IndentedWheelSlider/IndentedWheelSlider.h"/>
+            <FILE id="bslaTV" name="IndentedWheelSlider_LookAndFeel.cpp" compile="1"
+                  resource="0" file="Source/UI/Controls/IndentedWheelSlider/IndentedWheelSlider_LookAndFeel.cpp"/>
+            <FILE id="JYCyfZ" name="IndentedWheelSlider_LookAndFeel.h" compile="0"
+                  resource="0" file="Source/UI/Controls/IndentedWheelSlider/IndentedWheelSlider_LookAndFeel.h"/>
+          </GROUP>
+          <GROUP id="{A2DBB7B3-C288-B8A6-5CA6-9EE7DF405E73}" name="DryButton">
+            <FILE id="IYeEyc" name="DryButton.cpp" compile="1" resource="0" file="Source/UI/Controls/DryButton/DryButton.cpp"/>
+            <FILE id="j0IWk7" name="DryButton.h" compile="0" resource="0" file="Source/UI/Controls/DryButton/DryButton.h"/>
+          </GROUP>
+          <GROUP id="{8DB760E4-D4F6-DE5A-E8DE-76C7DCB7EF83}" name="MidiSyncSwitch">
+            <FILE id="j03IJC" name="MidiSyncSwitch.cpp" compile="1" resource="0"
+                  file="Source/UI/Controls/MidiSyncSwitch/MidiSyncSwitch.cpp"/>
+            <FILE id="ShtyEy" name="MidiSyncSwitch.h" compile="0" resource="0"
+                  file="Source/UI/Controls/MidiSyncSwitch/MidiSyncSwitch.h"/>
+          </GROUP>
+        </GROUP>
+        <FILE id="cLYJqm" name="PluginEditor.cpp" compile="1" resource="0"
+              file="Source/UI/PluginEditor.cpp"/>
+        <FILE id="b62WeZ" name="PluginEditor.h" compile="0" resource="0" file="Source/UI/PluginEditor.h"/>
+      </GROUP>
     </GROUP>
+    <FILE id="lJf3kE" name="Constants.h" compile="0" resource="0" file="Source/Constants.h"/>
   </MAINGROUP>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>

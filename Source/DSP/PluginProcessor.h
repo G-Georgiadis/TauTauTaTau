@@ -9,7 +9,7 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "Constants.h"
+#include "..\Constants.h"
 
 
 using namespace juce;
@@ -155,9 +155,6 @@ private:
 
     /** Returns the note duration in seconds of the given tempo and note duration */
     float getNoteDurationSeconds(double tempo, String noteDuration);
-
-    /** Filters to be used inside the feedback loops. */
-    IIRFilter filter_L, filter_R;
 
     // Inherited via Listener
     void parameterChanged(const String& parameterID, float newValue) override;
