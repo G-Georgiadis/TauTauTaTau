@@ -31,8 +31,8 @@ TauTauTaTauAudioProcessorEditor::TauTauTaTauAudioProcessorEditor(TauTauTaTauAudi
     feedback_X_Slider_Attachment(p.apvts, "FBX", feedback_X_Slider),
     feedback_R_Slider_Attachment(p.apvts, "FBR", feedback_R_Slider),
     midiSyncSwitch_Attachment(p.apvts, "SyncToMidi", midiSyncSwitch),
-    dry_Button_Attachment(p.apvts, "Dry", dry_Button),
-    gradient()
+    dry_Button_Attachment(p.apvts, "Dry", dry_Button)/*,
+    gradient()*/
 {
     setSize (400, 300);
 
@@ -59,7 +59,8 @@ TauTauTaTauAudioProcessorEditor::~TauTauTaTauAudioProcessorEditor()
 
 void TauTauTaTauAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    g.setGradientFill(gradient);
+    //g.setGradientFill(gradient);
+    g.setColour(Colours::beige.darker(0.2));
     g.fillAll();
 
     if (midiSyncSwitch.getToggleState())
@@ -106,10 +107,10 @@ void TauTauTaTauAudioProcessorEditor::resized()
     auto delay_R_Bounds = Rectangle<int>(topBoundsWidth * 0.54, topBoundsY, topBoundsWidth * 0.46, topBoundsHeight);
 
     delay_L_Slider.setBounds(delay_L_Bounds);
-    delay_L_ComboBox.setBounds(delay_L_Bounds.reduced(5, (topBoundsHeight - Constants::DropDownMenus::DROP_DOWN_MENU_HEIGHT) / 2));
+    delay_L_ComboBox.setBounds(delay_L_Bounds.reduced(delay_L_Bounds.getWidth() / 4.0, (topBoundsHeight - Constants::DropDownMenus::DROP_DOWN_MENU_HEIGHT) / 2));
     midiSyncSwitch.setBounds(midiSyncSwitch_Bounds);
     delay_R_Slider.setBounds(delay_R_Bounds);
-    delay_R_ComboBox.setBounds(delay_R_Bounds.reduced(5, (topBoundsHeight - Constants::DropDownMenus::DROP_DOWN_MENU_HEIGHT) / 2));
+    delay_R_ComboBox.setBounds(delay_R_Bounds.reduced(delay_L_Bounds.getWidth() / 4.0, (topBoundsHeight - Constants::DropDownMenus::DROP_DOWN_MENU_HEIGHT) / 2));
 
     auto feedbackKnobWidth = localBounds.getWidth() * 0.333;
 
@@ -119,5 +120,5 @@ void TauTauTaTauAudioProcessorEditor::resized()
 
     dry_Button.setBounds(localBounds.getX() + 10, localBounds.getHeight() - 25, 30, 15);
 
-    gradient = ColourGradient(Colours::beige, localBounds.getBottomLeft().toFloat(), Colours::white, localBounds.getTopRight().toFloat(), false);
+    //gradient = ColourGradient(Colours::beige, localBounds.getBottomLeft().toFloat(), Colours::beige.darker(), localBounds.getTopRight().toFloat(), false);
 }

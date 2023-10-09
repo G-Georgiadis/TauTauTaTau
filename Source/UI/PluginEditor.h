@@ -75,8 +75,8 @@ private:
     /** Button attachment connecting the dry parameter with the respective button. */
     AudioProcessorValueTreeState::ButtonAttachment dry_Button_Attachment;
 
-    /** The colour gradient used for the plugin background. */
-    ColourGradient gradient;
+    ///** The colour gradient used for the plugin background. */
+    //ColourGradient gradient;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TauTauTaTauAudioProcessorEditor)
 };

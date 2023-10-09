@@ -26,7 +26,7 @@ void DryButton::paintButton(Graphics& g, bool shouldDrawButtonAsHighlighted, boo
 	}
 	else		// Not pressed state
 	{
-		g.setColour(Colours::whitesmoke);
+		g.setColour(Colours::beige);
 		g.fillRoundedRectangle(getLocalBounds().toFloat(), 5);
 
 		g.setColour(Colours::grey);
